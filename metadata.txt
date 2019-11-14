@@ -1,0 +1,31 @@
+[general]
+
+name=Spatial data extractor
+
+description=Plugin that adds a point from iMap powered web site to given point layer.
+
+about=Plugin that adds a point from iMap powered web site to given point layer.
+ 
+ 
+version=1.0.0
+
+qgisMinimumVersion=3.0
+
+category=Plugins
+
+icon=img/Spatial_data_extractor_ICON.png
+
+author=Piotr Michałowski, Olsztyn, woj. W-M, Poland
+
+email=piotrm35@hotmail.com
+
+homepage=https://github.com/piotrm35/Spatial_data_extractor
+repository=https://github.com/piotrm35/Spatial_data_extractor
+tracker=https://github.com/piotrm35/Spatial_data_extractor/issues
+
+experimental=True
+
+deprecated=False
+
+tags=data, coordinates
+
