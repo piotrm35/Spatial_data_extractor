@@ -7,7 +7,7 @@ description=Plugin that adds a point from iMap powered web site to given point l
 about=Plugin that adds a point from iMap powered web site to given point layer.
  
  
-version=1.0.0
+version=1.0.1
 
 qgisMinimumVersion=3.0
 

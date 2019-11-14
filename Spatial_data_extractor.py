@@ -18,7 +18,7 @@
 
 SCRIPT_TITLE = 'Spatial data extractor'
 SCRIPT_NAME = 'Spatial_data_extractor'
-SCRIPT_VERSION = '1.0.0'
+SCRIPT_VERSION = '1.0.1'
 GENERAL_INFO = """
 author: Piotr Michałowski, Olsztyn, woj. W-M, Poland
 piotrm35@hotmail.com
@@ -101,11 +101,20 @@ class Spatial_data_extractor(QtWidgets.QMainWindow):
 
     def Input_raw_data_textEdit_textChanged(self):
         if not self.Input_raw_data_textEdit_is_clearing:
+            x = None
+            y = None
             tx = self.Input_raw_data_textEdit.toPlainText()
-            tx2 = tx.split('X:')[1].split(' ')
-            x = tx2[1].strip()
-            y = tx2[3].split('WGS84')[0].strip()
-            self.Spatial_data_textEdit.setPlainText(x + ' ' + y)
+            tx_list = tx.split('X:')[1].replace('\t', ' ').replace('\n', ' ').split(' ')
+            for i in range(len(tx_list)):
+                x = tx_list[i].strip()
+                if len(x) > 0:
+                    break
+            tx_list = tx.split('Y:')[1].replace('\t', ' ').replace('\n', ' ').split(' ')
+            for i in range(len(tx_list)):
+                y = tx_list[i].strip()
+                if len(y) > 0:
+                    break
+            self.Spatial_data_textEdit.setPlainText(str(x) + ' ' + str(y))
             self.Add_pushButton.setEnabled(True)
 
 
