@@ -129,6 +129,19 @@
     <string>?</string>
    </property>
   </widget>
+  <widget class="QCheckBox" name="Swapped_coordinates_checkBox">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>513</y>
+     <width>131</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">swapped coordinates</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
