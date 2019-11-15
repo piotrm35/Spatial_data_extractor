@@ -19,7 +19,7 @@
 
 SCRIPT_TITLE = 'Spatial data extractor'
 SCRIPT_NAME = 'Spatial_data_extractor'
-SCRIPT_VERSION = '1.1.0'
+SCRIPT_VERSION = '1.1.1'
 GENERAL_INFO = """
 author: Piotr Michałowski, Olsztyn, woj. W-M, Poland
 piotrm35@hotmail.com
@@ -71,15 +71,12 @@ class Spatial_data_extractor(QtWidgets.QMainWindow):
         self.Add_pushButton.clicked.disconnect(self.Add_pushButton_clicked)
         self.Input_raw_data_textEdit.textChanged.disconnect(self.Input_raw_data_textEdit_textChanged)
         self.About_pushButton.clicked.disconnect(self.about_pushButton_clicked)
-        
-        
+
+
     def run(self):
-        try:
-            self.output_layer = QgsProject.instance().mapLayersByName(Setup.OUTPUT_POINT_LAYER_NAME)[0]
+        self.set_output_layer()
+        if self.output_layer is not None:
             self.show()
-        except:
-            self.output_layer = None
-            QtWidgets.QMessageBox.critical(self, SCRIPT_TITLE, "There is no '" + str(Setup.OUTPUT_POINT_LAYER_NAME) + "' layer.")
         
 
     #----------------------------------------------------------------------------------------------------------------
@@ -88,16 +85,20 @@ class Spatial_data_extractor(QtWidgets.QMainWindow):
 
     def Add_pushButton_clicked(self):
         self.Add_pushButton.setEnabled(False)
+        self.Input_raw_data_textEdit_is_clearing = True
+        self.Input_raw_data_textEdit.clear()
+        self.Input_raw_data_textEdit_is_clearing = False
+        self.set_output_layer()
+        if self.output_layer is None:
+            self.Spatial_data_textEdit.clear()
+            return
         tx = self.Spatial_data_textEdit.toPlainText()
-        if self.output_layer and tx and tx != self.previous_data:
+        if tx and tx != self.previous_data:
             self.add_a_point_to_output_layer(tx)
             self.previous_data = tx
             self.Spatial_data_textEdit.setPlainText('The spatial data has been saved to output layer.')
         else:
             self.Spatial_data_textEdit.setPlainText('Add_pushButton_clicked - POINT NOT ADDED.')
-        self.Input_raw_data_textEdit_is_clearing = True
-        self.Input_raw_data_textEdit.clear()
-        self.Input_raw_data_textEdit_is_clearing = False
         
 
     def Input_raw_data_textEdit_textChanged(self):
@@ -134,6 +135,14 @@ class Spatial_data_extractor(QtWidgets.QMainWindow):
 
     #----------------------------------------------------------------------------------------------------------------
     # work methods:
+
+
+    def set_output_layer(self):
+        try:
+            self.output_layer = QgsProject.instance().mapLayersByName(Setup.OUTPUT_POINT_LAYER_NAME)[0]
+        except:
+            self.output_layer = None
+            QtWidgets.QMessageBox.critical(self, SCRIPT_TITLE, "There is no '" + str(Setup.OUTPUT_POINT_LAYER_NAME) + "' layer.")
     
 
     def add_a_point_to_output_layer(self, coordinates):
