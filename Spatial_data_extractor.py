@@ -19,7 +19,7 @@
 
 SCRIPT_TITLE = 'Spatial data extractor'
 SCRIPT_NAME = 'Spatial_data_extractor'
-SCRIPT_VERSION = '1.1.2'
+SCRIPT_VERSION = '1.1.3'
 GENERAL_INFO = """
 author: Piotr Michałowski, Olsztyn, woj. W-M, Poland
 piotrm35@hotmail.com
